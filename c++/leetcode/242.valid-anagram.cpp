@@ -51,10 +51,27 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
+        unordered_map<char,int> mp; 
 
-        return s==t; 
+        for(int i = 0 ; i < s.length() ; i++)
+        {
+            mp[s[i]]++; 
+        }
+
+        for(int i = 0 ; i < t.length() ; i++)
+        {
+            char val = t[i]; 
+
+            if(mp.find(val)!=mp.end()){
+                mp[val]--; 
+                if(mp[val]==0) mp.erase(val); 
+            }
+
+            else return false; 
+        }
+
+        if(mp.size()>0) return false; 
+        return true; 
     }
 };
 // @lc code=end
